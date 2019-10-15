@@ -32,9 +32,10 @@ class Form extends Component {
     );
   }
 }
-```
-<input>或<select>都要绑定一个change事件;每当表单的状态发生变化,都会被写入组件的state中,这种组件在React中被称为受控组件;在受控组件中,组件渲染出的状态与它的value或者checked prop向对应.react通过这种方式消除了组件的局部状态,使应用的整个状态可控.react官方同样推荐使用受控表单组件,总结下React受控组件更新state的流程:
+```  
 
+<input>或<select>都要绑定一个change事件;每当表单的状态发生变化,都会被写入组件的state中,这种组件在React中被称为受控组件;在受控组件中,组件渲染出的状态与它的value或者checked prop向对应.react通过这种方式消除了组件的局部状态,使应用的整个状态可控.react官方同样推荐使用受控表单组件,总结下React受控组件更新state的流程:  
+  
 - 1.可以通过初始state中设置表单的默认值;
 - 2.每当表单的值发生变化时,调用onChange事件处理器;
 - 3.事件处理器通过合成事件对象e拿到改变后的状态,并更新应用的state.
