@@ -47,7 +47,6 @@ class Form extends Component {
 
 在React的生命周期中，表单元素上的value属性将会覆盖DOM中的值。使用非受控组件时，通常你希望React可以为其制定初始值，它仅会被渲染一次,在后续的渲染时并不起作用。解决这个问题的办法是你可以指定一个defaultValue属性而不是value。
 
-
 ```
 class Form extends Component {
   handleSubmitClick = () => {
