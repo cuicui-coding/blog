@@ -4,7 +4,8 @@
 ```
 <input value={someValue} onChange={handleChange} />
 ```
-思考input的value props应该来自哪里？
+思考input的value props的值保存在哪里？  
+
 通常组件会把input的value props值保存在自身state中，当然也可以来自另一个组件的state,或者放在store,比如Redux。
 ```
 class Form extends Component {
@@ -41,11 +42,11 @@ class Form extends Component {
 
 > react中数据是单向流动的.从示例中,我们能看出来表单的数据来源于组件的state,并通过props传入,这也称为单向数据绑定.然后,我们又通过onChange事件处理器将新的表单数据写回到state,完成了双向数据绑定.
 
-非受控组件
+非受控组件  
 
-非受控组件不同于受控组件数据是react组件处理的，是通过dom进行处理，将真实数据保存在DOM中，此时将input通过ref暴露给组件，可以通过this.input进行访问DOM获得表单值，而不是为每个状态更新编写一个事件处理程序。
+非受控组件不同于受控组件数据是react组件处理的，是通过dom进行处理，将真实数据保存在DOM中，此时将input通过ref暴露给组件，可以通过this.input进行访问DOM获得表单值，而不是为每个状态更新编写一个事件处理程序。  
 
-在React的生命周期中，表单元素上的value属性将会覆盖DOM中的值。使用非受控组件时，通常你希望React可以为其制定初始值，它仅会被渲染一次,在后续的渲染时并不起作用。解决这个问题的办法是你可以指定一个defaultValue属性而不是value。
+在React的生命周期中，表单元素上的value属性将会覆盖DOM中的值。使用非受控组件时，通常你希望React可以为其制定初始值，它仅会被渲染一次,在后续的渲染时并不起作用。解决这个问题的办法是你可以指定一个defaultValue属性而不是value。  
 
 ```
 class Form extends Component {
@@ -63,7 +64,7 @@ class Form extends Component {
     );
   }
 }
-```
+```  
 
 [官网文章](https://goshakkk.name/controlled-vs-uncontrolled-inputs-react/)
 [](https://segmentfault.com/a/1190000012404114?utm_source=tag-newest)
