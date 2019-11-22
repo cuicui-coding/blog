@@ -9,12 +9,10 @@ title: 我的博客
 
 <ul>
 
-　  {% for post in site.posts %}
-      {% for category post in post}
+　 {% for post in site.posts %}
 
-　　  <li>{{ category.date | date_to_string }} <a href="{{ site.baseurl }}{{ category.url }}">{{ category.title }}</a></li>
-      
-      {% endfor %}
-　　{% endfor %}
+　　 <li>{{ post.date | date_to_string }} <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></li>
 
-</ul>
+　　　　{% endfor %}
+
+　　</ul>
