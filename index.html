@@ -10,8 +10,9 @@ title: 我的博客
 <ul>
 
 　 {% for post in site.posts %}
+      {% for category post in post}
 
-　　  <li>{{ post.date | date_to_string }} <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></li>
+　　  <li>{{ category.date | date_to_string }} <a href="{{ site.baseurl }}{{ category.url }}">{{ category.title }}</a></li>
 
 　　{% endfor %}
 
