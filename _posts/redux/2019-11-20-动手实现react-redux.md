@@ -152,6 +152,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(Counter);
       }
   })
   ```
+
 至此，我们已经搞清楚 mapStateToProps 和 mapDispatchToProps 的格式，是时候进一步改进 connect 了。
 
 ### connect 1.0 版本
