@@ -184,7 +184,7 @@ Warning: Can't perform a React state update on an unmounted component. This is a
 ```
 第一种写法代码是把 timer 作为组件内的局部变量使用。在初次渲染组件时， useEffect 返回的闭包函数中指向了这个局部变量 timer。在 dealClick 中设置计时器时返回值依旧写给了这个局部变量（即读和写都是同一个变量），因此在后续卸载时，虽然组件重新运行导致出现一个新的局部变量 timer，但这不影响闭包内老的 timer，所以还是取的老的timer值。
 
-如果我们把useEffect的第二个参数改为[value], 那么只要value更新时，useEffect就会重新执行。
+分析useEffect第二个参数，如果不设置，就会每次render都会执行，如果设置为[],就会在mount阶段执行一次，如果设置为[value], 每次render时，只会value值变化，useEffect就会重新执行。
 ```
 useEffect(() => {
       console.log('调用useEffect方法：', 'timer=', timer,' value=',value)
