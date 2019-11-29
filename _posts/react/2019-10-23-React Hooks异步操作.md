@@ -68,6 +68,10 @@ React 会报一个 Warning
 
 问题的核心在于，在组件卸载后依然调用了 setValue(data.value) 和 setLoading(false) 来更改状态。因此一个简单的办法是标记一下组件有没有被卸载，可以利用 useEffect 的返回值。
 
+和这个例子相比，还有很多其他的场景更难辨别和分析，比如，你在 useEffect 里调用了某个函数(函数定义在 useEffect 外面)，但是却 没有 在依赖项里添加这个useEffect函数，那么代码很可能有bug了。相信我，每次在我忽略了这条规则之后，我都会后悔当初为什么没有遵守规则。
+
+后面只是列举了这个例子，暂时先忽略这条规则：// eslint-disable-next-line react-hooks/exhaustive-deps
+
 ```
 // 省略组件其他内容，只列出 diff
 useEffect(() => {
