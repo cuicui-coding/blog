@@ -515,3 +515,6 @@ export const MyComponent: React.FC<{}> = () => {
 - setTimeout in React Components Using Hooks
 
 - React - useState - why setTimeout function does not have latest state value?
+
+
+
