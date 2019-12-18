@@ -329,3 +329,74 @@ function Counter() {
 export default Counter
 ```
 在某些场景下，useReducer 会比 useState 更适用，例如 state 逻辑较复杂且包含多个子值，或者下一个 state 依赖于之前的 state 等。并且，使用 useReducer 还能给那些会触发深更新的组件做性能优化，因为你可以向子组件传递 dispatch 而不是回调函数 。
+
+#### 原理&源码解析
+
+```
+import React, { Component, useState, useEffect } from 'react'
+
+
+const Child = (props, ref)=>{
+
+  useState(1)
+  useState(2)
+  useState(3)
+
+  useEffect((a) => {
+    console.log(a)
+  });
+  useEffect((b) => {
+    console.log(b)
+  });
+  useEffect((c) => {
+    console.log(c)
+  });
+
+  return <span>this is span</span>
+
+}
+
+export class chain extends Component {
+  componentDidMount(){
+    const childFiberNode = this._reactInternalFiber.child;
+    console.log(childFiberNode.elementType)
+    console.log(childFiberNode.memoizedState)
+    console.log(childFiberNode.updateQueue)
+
+
+    setTimeout(()=>{
+      console.log(this)
+      debugger
+    })
+  }
+  render() {
+    return (
+      <div>
+        <Child x={1}/>
+      </div>
+    );
+  }
+}
+
+export default chain;
+
+```
+通过this._reactInternalFiber.child得到FiberNode，FiberNode就是一棵树，每一个节点对应一个真实DOM, FiberNode有很多属性：stateNode, tag, type, updateQueue, memoizedState。
+
+整体设计就是一个链表。
+
+Fiber有两个更新周期，分为两个部分，phase1: render， phase2:commit.
+
+- phase1: render
+render时会产生vdom树，比较前一个版本树，产生一个更新序列。  
+这个阶段对应useState
+
+在node节点上，setData(10)改变的是FiberNode的状态, memoizedState会记住变化的值，5->10->20，是个环状链表，无数次提交setData,把变化存成一个Queue, 计算这些值，产生更新序列，牵扯到updateQueue.
+
+所以useState发生在第一阶段。
+
+- phase2: commit
+apply每个更新序列，真实dom操作。
+在apply更新序列时候，会看到updateQueue，它里面都是effects, 在函数式中称为副作用，effects它也会产生effects的变化，E1->E2->E3。
+
+所以useEffect发生在第二个阶段。
